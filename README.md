@@ -2,23 +2,23 @@
 App with backend
 
 Fresh start.
-This time i'll only upload the files in www.
+This time i'll only upload the files in www directory.
 And the final APK probably.
 
 ## Plans 
 
 #### Users 
 
-*Patients
-*Doctors
+* Patients
+* Doctors
 
 #### Functions
 
-*Both can register and login
-*Patients can see doctors registered with the app
-*Patients can see on which days doctors free
-*and can apply for appointments.
-*Doctors can view appointments.
+* Both can register and login
+* Patients can see doctors registered with the app
+* Patients can see on which days doctors free
+* and can apply for appointments.
+* Doctors can view appointments.
 
 App seems pretty straight forward after writing this readme file.
 I'll be using web sql and local storage to store the info.
