@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login page</title>
+
+    <link rel="stylesheet" href="css/index.css">
+</head>
+<body>
+    <div class="logo">
+
+    </div>
+
+    <div id="patient" class="login-form">
+        <form action="">
+            <input type="text" id="patient_mail" placeholder="Patient Email / Phone number">
+            <input type="password" id="patient_pwrd" placeholder="Password">
+            <input type="button" onclick="userLogin()" value="Login">
+        </form>        
+        
+        <a class="forgotpwd" href="forgot.html">Forgot password?</a>
+        <br>
+
+        <p>
+            <br>
+            Doctor?
+            <br>
+            <a id="user_login" href="javascript:void(0)" onclick="showDoctorLogin()">Login</a> here.
+        </p>
+
+        <a class="register" href="register.html">Register</a>
+    </div>
+
+    <div id="doctor" class="login-form">
+        <form action="">
+            <input type="text" id="doctor_mail" placeholder="Doctor Email / Registration ID">
+            <input type="password" id="doctor_pwrd" placeholder="Password">
+            <input type="button" onclick="doctorLogin()" value="Login">
+        </form>        
+        
+        <a class="forgotpwd" href="forgot.html">Forgot password?</a>
+        <br>
+
+        <p>
+            <br>
+            Patient?
+            <br>
+            <a id="user_login" href="javascript:void(0)" onclick="showPatientLogin()">Login</a> here.
+        </p>
+
+        <a class="register" href="register.html">Register</a>
+    </div>
+
+    <script type="text/javascript" src="cordova.js"></script>
+    <script type="text/javascript" src="js/index.js"></script>    
+    <script>
+        var name = locstore.getItem("name");
+
+        if (name != "null") {
+            window.location.href = "home.html";
+        }
+    </script>
+
+</body>
+</html>
