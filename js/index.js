@@ -1,7 +1,7 @@
-var webstore = openDatabase('ehealth', '1.0', 'demo', 2*1024*1024);
+var webstore = openDatabase('ehealth', '1.0', 'demo', 5*1024*1024);
 var locstore = window.localStorage ;
 
-function register() {
+function patientRegister() {
     var name = document.getElementById("name").value;
     var age  = document.getElementById("age").value;
     var phno = document.getElementById("phno").value ;
@@ -9,8 +9,8 @@ function register() {
     var pwrd = document.getElementById("pwrd").value;
 
     webstore.transaction(function(tx) {
-        tx.executeSql('CREATE TABLE IF NOT EXISTS USERS (name VARCHAR(50), age INT, phone INT, email VARCHAR(100), password VARCHAR(50), PRIMARY KEY (email))');
-        tx.executeSql('INSERT INTO USERS VALUES (?,?,?,?,?)', [name, age, phno, mail, pwrd]);
+        tx.executeSql('CREATE TABLE IF NOT EXISTS PATIENTS (name VARCHAR(50), age INT, phone INT, email VARCHAR(100), password VARCHAR(50), PRIMARY KEY (email))');
+        tx.executeSql('INSERT INTO PATIENTS VALUES (?,?,?,?,?)', [name, age, phno, mail, pwrd]);
     });
 
     alert(mail, pwrd);
@@ -18,12 +18,33 @@ function register() {
     window.location.href = "index.html";
 }
 
-function userLogin() {
+function doctorRegister() {
+    var name = document.getElementById("name").value;
+    var age  = document.getElementById("age").value;
+    var phno = document.getElementById("phno").value;
+    var mail = document.getElementById("mail").value;
+    var regid = document.getElementById("regid").value;
+    var pwrd = document.getElementById("pwrd").value;
+
+    webstore.transaction(function(tx) {
+        tx.executeSql('CREATE TABLE IF NOT EXISTS DOCTORS (name VARCHAR(50), age INT, phone INT, email VARCHAR(100), registration_id VARCHAR(50), password VARCHAR(50), PRIMARY KEY (email))');
+        tx.executeSql('CREATE TABLE IF NOT EXISTS APPOINTMENT (email VARCHAR(50), sun INT, mon INT, tue INT, wed INT, thu INT, fri INT, sat INT, PRIMARY KEY (email))');
+
+        tx.executeSql('INSERT INTO DOCTORS VALUES (?,?,?,?,?,?)', [name, age, phno, mail, regid, pwrd]);
+        tx.executeSql('INSERT INTO APPOINTMENT VALUES (?,?,?,?,?,?,?,?)', [mail, '0', '0', '0', '0', '0', '0', '0']);
+    });
+
+    alert(mail, pwrd);
+
+    window.location.href = "index.html";
+}
+
+function patientLogin() {
     var mail = document.getElementById("patient_mail").value;
     var pwrd = document.getElementById("patient_pwrd").value;
 
     webstore.transaction(function(tx) {
-        tx.executeSql('SELECT * FROM USERS WHERE email = ? AND password = ?', [mail, pwrd], function(tx, results) {
+        tx.executeSql('SELECT * FROM PATIENTS WHERE email = ? AND password = ?', [mail, pwrd], function(tx, results) {
             var len = results.rows.length;
 
             if (len == 1) {
@@ -71,16 +92,28 @@ function doctorLogin() {
 }
 
 
-function forgot_pwd() {
+function patientForgotPwd() {
     var mail = document.getElementById("mail").value;
     var npwd = document.getElementById("npwd").value;
 
     webstore.transaction( function(tx) {
-        tx.executeSql('UPDATE USERS SET password = ? WHERE email = ?', [npwd ,mail]);
+        tx.executeSql('UPDATE PATIENTS SET password = ? WHERE email = ?', [npwd ,mail]);
     });
 
     window.location.href = "index.html";
 }
+
+function doctorForgotPwd() {
+    var mail = document.getElementById("mail").value;
+    var npwd = document.getElementById("npwd").value;
+
+    webstore.transaction( function(tx) {
+        tx.executeSql('UPDATE DOCTORS SET password = ? WHERE email = ?', [npwd ,mail]);
+    });
+
+    window.location.href = "index.html";
+}
+
 
 
 function logout() {
