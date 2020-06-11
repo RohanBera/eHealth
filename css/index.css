@@ -1,0 +1,286 @@
+* {
+    -webkit-tap-highlight-color: rgba(0,0,0,0); /* make transparent link selection, adjust last value opacity 0 to 1.0 */
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    border: none;
+    outline: none;
+}
+
+body {
+    -webkit-touch-callout: none;                /* prevent callout to copy image, etc when tap to hold */
+    -webkit-text-size-adjust: none;             /* prevent webkit from resizing text to fit */
+    -webkit-user-select: none;                  /* prevent copy paste, to allow, change 'none' to 'text' */
+    background-color:#f0f0f0;
+    background-image:linear-gradient(top, #A7A7A7 0%, #E4E4E4 51%);
+    font-family: system-ui, -apple-system, -apple-system-font, 'Segoe UI', 'Roboto', sans-serif;
+    font-size:12px;
+    height:100vh;
+    margin:0px;
+    padding:0px;
+    /* Padding to avoid the "unsafe" areas behind notches in the screen */
+    padding: env(safe-area-inset-top, 0px) env(safe-area-inset-right, 0px) env(safe-area-inset-bottom, 0px) env(safe-area-inset-right, 0px);
+    width:100%;
+
+    transition-duration: 300ms;
+}
+
+.content {
+    margin-top: 100px;
+}
+
+/* Portrait layout (default) */
+.logo {
+    background:url(../img/logo.png) no-repeat center top; /* 170px x 200px */
+    position:absolute;             /* position in the center of the screen */
+    left:50%;
+    top:20%;
+    height:50px;                   /* text area height */
+    width:225px;                   /* text area width */
+    text-align:center;
+    padding:180px 0px 0px 0px;     /* image height is 200px (bottom 20px are overlapped with text) */
+    margin:-115px 0px 0px -112px;  /* offset vertical: half of image height and text area height */
+                                   /* offset horizontal: half of text area width */
+}
+
+.login-form, .forgot-form{
+    position:absolute;             /* position in the center of the screen */
+    top: 30%;
+    padding: 30px;
+    text-align: center;
+
+    transition-duration: 500ms;
+}
+
+.login-form#doctor {
+    right: 100%;
+} 
+
+input {
+    width: 100%;
+    padding: 15px;
+    border: 1px solid #bbbbbb;
+    border-radius: 5px;
+    margin: 10px 0px;
+}
+
+::placeholder {
+    color: #bbbbbb;
+}
+
+input[type=button] {
+    width: 70%;
+    padding: 15px;
+    color: white;
+    font-weight: 700;
+    background: green;
+    border-radius: 5px;
+    box-shadow: 0px 5px 10px #bbbbbb;
+    margin: 10px 0;
+
+    transition-duration: 200ms;
+}
+
+input[type=button]:active {
+    background: rgb(0, 80, 0);
+}
+
+a {
+    display: inline-block;
+    text-decoration: none;
+}
+
+a.forgotpwd {
+    color: #bbbbbb;
+    padding-top: 10px;
+    font-size: 17px;
+    font-weight: 500;
+}
+
+a.register {
+    color: green;
+    background-color: #f0f0f0;
+    border: 1px solid #bbbbbb;
+    border-radius: 5px;
+    width: 50%;
+    padding: 15px;
+    margin-top: 50px;
+}
+
+.register-form {
+    position:absolute;             /* position in the center of the screen */
+    top: 30%;
+    width: 100%;
+    padding: 30px;
+    text-align: center;
+}
+
+.register-form a.user_register {
+    text-decoration: none;
+    color: green;
+    background-color: #dadada;
+    font-size: 30px;
+    border-radius: 200px;
+    width: 150px;
+    height: 150px;
+    line-height: 140px;
+    vertical-align: center;
+    margin-top: 20px;
+    border: 5px solid white;
+    box-shadow: 0px 0px 10px grey;
+
+    transition-duration: 300ms;
+}
+
+.register-form a.user_register:active {
+    box-shadow: none;
+}
+
+.register-form input {
+    margin: 5px 0px;
+}
+
+.register-form input#age{
+    float: left;
+    width: 49%;
+}
+
+.register-form input#sex {
+    float: right;
+    width: 49%;
+}
+
+.register-form p, .forgot-form p, .login-form p{
+    color: #777777;
+    margin: 20px 0px;
+    font-size: 15px;
+}
+
+.register-form a, .forgot-form a, .login-form a#user_login {
+    color: green;
+    font-weight: 900;
+}
+
+h1 {
+    font-size:24px;
+    font-weight:normal;
+    margin:0px;
+    overflow:visible;
+    padding:0px;
+    text-align:center;
+}
+
+.event {
+    border-radius:4px;
+    -webkit-border-radius:4px;
+    color:#FFFFFF;
+    font-size:12px;
+    margin:0px 30px;
+    padding:2px 0px;
+}
+
+.event.listening {
+    background-color:#333333;
+    display:block;
+}
+
+.event.received {
+    background-color:#4B946A;
+    display:none;
+}
+
+@keyframes fade {
+    from { opacity: 1.0; }
+    50% { opacity: 0.4; }
+    to { opacity: 1.0; }
+}
+ 
+@-webkit-keyframes fade {
+    from { opacity: 1.0; }
+    50% { opacity: 0.4; }
+    to { opacity: 1.0; }
+}
+ 
+.blink {
+    animation:fade 3000ms infinite;
+    -webkit-animation:fade 3000ms infinite;
+}
+
+/* side navbar */
+
+.sidenav {
+    height: 100%;
+    width: 0;
+    position: fixed;
+    background: white;
+    z-index: 1;
+    top: 0;
+    left: 0;
+    overflow-x: hidden;
+    box-shadow: 10px 0px 100px grey ;
+    /* text-align: center; */
+
+    transition-duration: 500ms;
+}
+
+.sidenav .sidenav_header {
+    padding-top: 60px;
+    margin-bottom: 60px;
+    height: 20%;
+    width: 100%;
+    background: green;
+}
+
+.sidenav a {
+    padding: 8px 8px 8px 8px;
+    margin-left: 20px;
+    text-decoration: none;
+    font-size: 20px;
+    color: green;
+    display: block;
+
+    transition-duration: 300ms;
+}
+
+.sidenav a.logout {
+    position: absolute;
+    width: 85%;
+    bottom: 20px;
+    padding-top: 20px;
+    border-top: 2px solid grey;
+}
+
+.sidenav a:hover {
+    color: rgb(0, 150, 0);
+}
+
+.sidenav a.closebtn {
+    color: white;
+    padding: 8px;
+    position: absolute;
+    top: 0;
+    left: 0;
+    font-size: 36px;
+    margin-left: 15px;
+}
+
+/* header */
+
+.header {
+    height: 60px;
+    width: 100%;
+    top: 0;
+    background: green;
+    line-height: 60px;
+    vertical-align: middle;
+    box-shadow: 0px 0px 20px grey;
+    position: fixed;
+
+    transition-duration: 300ms;
+}
+
+.header .menu {
+    color: white;
+    font-size: 30px;
+    padding-left: 20px;
+}
