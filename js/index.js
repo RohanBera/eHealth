@@ -115,7 +115,6 @@ function doctorForgotPwd() {
 }
 
 
-
 function logout() {
     locstore.removeItem("name");
     locstore.removeItem("mail");
@@ -128,12 +127,14 @@ function openNav() {
     document.getElementById('sidenav').style.width = "80%";
     document.body.style.backgroundColor = "rgba(0,0,0,0.4)";
     document.getElementById("header").style.backgroundColor = "rgba(0,128,0,0.4)"
+    document.getElementById("profile_header").style.backgroundColor = "rgba(0,128,0,0.4)"
 }
 
 function closeNav() {
     document.getElementById('sidenav').style.width = "0";
     document.body.style.backgroundColor = "#f0f0f0";
     document.getElementById("header").style.backgroundColor = "green"
+    document.getElementById("profile_header").style.backgroundColor = "green"
 
 }
 
@@ -148,3 +149,40 @@ function showPatientLogin() {
     document.getElementById("doctor").style.right  = "100%";
     document.getElementById("patient").style.right = "0";
 }
+
+// patient home page
+
+function getDoctors() {
+    webstore.transaction(function(tx) {
+        tx.executeSql('SELECT * FROM DOCTORS', [], function(tx, results) {
+            var len = results.rows.length;
+            var i;
+
+            for (i = 0; i < len; i++) {
+                var name = results.rows.item(i).name;
+                var mail = results.rows.item(i).email;
+
+                name = toTitleCase(name);
+
+                var container = '';
+                container += '<div class="doc" name="' +mail+ '" onclick="displayDocProfile(this.name)">';
+                container += '<div class="img">';
+                container += '</div>';
+                container += '<div class="name">';
+                container += 'Dr. ' + name;
+                container += '</div>';
+                container += '<a href="#">Book an appointment</a>';
+                container += '</div>';
+
+                document.getElementById('doc_container').innerHTML += container;
+            }
+        });
+    });
+}
+
+// first letter of each word made capital
+function toTitleCase(str) {
+    return str.replace(/\w\S*/g, function(txt){
+        return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();
+    });
+} 
