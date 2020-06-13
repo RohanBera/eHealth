@@ -8,9 +8,8 @@
     <link rel="stylesheet" href="css/index.css">
 </head>
 
-<body onload="getDoctors()">
-
-    <div id="header" class="header">
+<body>
+    <div id="header" class="header" style="box-shadow: none;">
         <span class="menu" onclick="openNav();">&#9776;</span>
     </div>
 
@@ -28,51 +27,75 @@
         <a class="logout" href="javascript:void(0)" onclick="logout()">Logout</a>
     </div>
 
-    <div class="content">
-    <h1 id="msg"></h1>
+    <div class="profile">
+        <div class="profile_header" id="profile_header">
+            <div class="profile_picture">
+            </div>     
 
-    <div class="doc_container" id="doc_container">
-        <div class="doc">
-            <div class="img">
-
-            </div>
-            <div class="name">
-                Dr. Blah Blah
-            </div>
-            <a href="#">Book an appointment</a>
+            <div class="profile_name" id="profile_name">
+            </div>       
         </div>
 
-        <div class="doc">
-            <div class="img">
+        <h1>Your appointments.</h1>
+        <br>
+        <br>
 
+        <div class="appointments">
+            <div class="date">
+                mon
             </div>
-            <div class="name">
-                Dr. Blah Blah
+            <div class="details">
+                <div class="main">
+                    bruh
+                </div>
+                <div class="sub">
+                    bruh
+                </div>
             </div>
-            <a href="#">Book an appointment</a>
         </div>
 
-        <div class="doc">
-            <div class="img">
-
+        <div class="appointments">
+            <div class="date">
+                sat
             </div>
-            <div class="name">
-                Dr. Blah Blah
+            <div class="details">
+                <div class="main">
+                    bruh
+                </div>
+                <div class="sub">
+                    bruh
+                </div>
             </div>
-            <a href="#">Book an appointment</a>
+        </div>        
+        
+        <div class="appointments">
+            <div class="date">
+                tue
+            </div>
+            <div class="details">
+                <div class="main">
+                    bruh
+                </div>
+                <div class="sub">
+                    bruh
+                </div>
+            </div>
+        </div>        
+        
+        <div class="appointments">
+            <div class="date">
+                thu
+            </div>
+            <div class="details">
+                <div class="main">
+                    bruh
+                </div>
+                <div class="sub">
+                    bruh
+                </div>
+            </div>
         </div>
 
-        <div class="doc">
-            <div class="img">
-
-            </div>
-            <div class="name">
-                Dr. Blah Blah
-            </div>
-            <a href="#">Book an appointment</a>
-        </div>
-    </div>
-
     <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Magni dolor iste eligendi numquam fugit aut distinctio ut similique assumenda quaerat unde, illo repellendus nesciunt libero ex laboriosam, ipsa incidunt natus?</p>
     <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Magni dolor iste eligendi numquam fugit aut distinctio ut similique assumenda quaerat unde, illo repellendus nesciunt libero ex laboriosam, ipsa incidunt natus?</p>
     <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Magni dolor iste eligendi numquam fugit aut distinctio ut similique assumenda quaerat unde, illo repellendus nesciunt libero ex laboriosam, ipsa incidunt natus?</p>
@@ -102,7 +125,7 @@
     <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Magni dolor iste eligendi numquam fugit aut distinctio ut similique assumenda quaerat unde, illo repellendus nesciunt libero ex laboriosam, ipsa incidunt natus?</p>
     <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Magni dolor iste eligendi numquam fugit aut distinctio ut similique assumenda quaerat unde, illo repellendus nesciunt libero ex laboriosam, ipsa incidunt natus?</p>
     <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Magni dolor iste eligendi numquam fugit aut distinctio ut similique assumenda quaerat unde, illo repellendus nesciunt libero ex laboriosam, ipsa incidunt natus?</p>
-    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Magni dolor iste eligendi numquam fugit aut distinctio ut similique assumenda quaerat unde, illo repellendus nesciunt libero ex laboriosam, ipsa incidunt natus?</p>
+    
     </div>
 
     <script type="text/javascript" src="cordova.js"></script>
@@ -114,7 +137,7 @@
             window.location.href = "login.html";
         }
         else {
-            document.getElementById("msg").innerHTML = "Hi "+ name + "!"; 
+            document.getElementById("profile_name").innerHTML = name; 
         }
     </script>
 </body>
