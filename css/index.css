@@ -164,10 +164,10 @@ a.register {
 h1 {
     font-size:24px;
     font-weight:normal;
-    margin:0px;
+    margin-left : 40px;
     overflow:visible;
     padding:0px;
-    text-align:center;
+    text-align: left;
 }
 
 .event {
@@ -283,4 +283,118 @@ h1 {
     color: white;
     font-size: 30px;
     padding-left: 20px;
+}
+
+/* home page */
+
+.doc_container {
+    padding: 30px;
+    width: 100%;
+    /* background-color: #bbedab; */
+    align-items: center;
+    overflow: hidden;
+}
+
+.doc_container .doc {
+    width: 44%;
+    /* height: 200px; */
+    padding: 10px;
+    margin: 3%;
+    float: left;
+    background-color: white;
+    text-align: left;
+    border-radius: 5px;
+    box-shadow: 10px 10px 15px grey;
+}
+
+.doc_container .doc .img {
+    padding-top: 130px ;
+    background: url(../img/doctor_default.png);
+    background-size: cover;
+}
+
+.doc_container .doc .name {
+    margin: 10px 0px 5px 0px;
+    font-size: 17px;
+}
+
+.doc_container .doc a {
+    text-decoration: none;
+    font-size: 12px;
+    color: grey;
+}
+
+/* profile page */
+
+.profile {
+    padding-top: 60px;
+}
+.profile .profile_header {
+    /* height: 30vh; */
+    padding: 40px 0px 90px 0px;
+    width: 100%;
+    background: green;
+    margin-bottom: 60px;
+
+    transition-duration: 300ms;
+}
+
+.profile .profile_header .profile_picture {
+    height: 100px;
+    width: 100px;
+    margin: auto;
+    border-radius: 30px;
+    background: url(../img/patient_default.png), white;
+    background-size: cover;
+    box-shadow: 0px 0px 50px whitesmoke;
+}
+
+.profile .profile_header .profile_name {
+    text-align: center;
+    font-size: 25px;
+    color: white;
+    margin-top: 20px;
+    text-transform: capitalize;
+}
+
+.profile .appointments {
+    height: 80px;
+    margin: 30px 20px;
+    box-shadow: 7px 7px 15px grey;
+    border-right: 5px solid #acacff;
+    border-radius: 4px;
+}
+
+.profile .appointments .date {
+    height : 100%;
+    width : 80px;
+    float: left;
+    border-top-left-radius: 4px;
+    border-bottom-left-radius: 4px;
+    /* background:linear-gradient(red, rgb(255, 150, 150)); */
+    background:linear-gradient(lightblue, #acacff);
+    color: white;
+    text-align: center;
+    line-height: 80px;
+    vertical-align: middle;
+    text-transform: capitalize;
+    font-size: 20px;
+}
+
+.profile .appointments .details {
+    width: 100%;
+    padding: 20px 0px 20px 100px;
+}
+
+.profile .appointments .details .main {
+    font-size: 20px;
+    font-weight: 800;
+    text-transform: capitalize;
+}
+
+.profile .appointments .details .sub {
+    font-size: 15px;
+    font-style: italic;
+    text-transform: capitalize;
+    color: grey;
 }
