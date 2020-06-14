@@ -48,12 +48,13 @@ function patientLogin() {
             var len = results.rows.length;
 
             if (len == 1) {
+                locstore.setItem("user", "patient")
                 locstore.setItem("mail", mail);
 
                 var name = results.rows.item(0).name;
                 locstore.setItem("name", name);
 
-                window.location.href = "home.html";
+                window.location.href = "patient_home.html";
             }
             else {
                 alert('error');
@@ -74,12 +75,13 @@ function doctorLogin() {
             var len = results.rows.length;
 
             if (len == 1) {
+                locstore.setItem("user", "doctor");
                 locstore.setItem("mail", mail);
 
                 var name = results.rows.item(0).name;
                 locstore.setItem("name", name);
 
-                window.location.href = "home.html";
+                window.location.href = "doctor_home.html";
             }
             else {
                 alert('error');
@@ -116,8 +118,7 @@ function doctorForgotPwd() {
 
 
 function logout() {
-    locstore.removeItem("name");
-    locstore.removeItem("mail");
+    locstore.clear();
 
     window.location.href = 'index.html';
 }
@@ -161,11 +162,12 @@ function getDoctors() {
             for (i = 0; i < len; i++) {
                 var name = results.rows.item(i).name;
                 var mail = results.rows.item(i).email;
+                var func = "displayDocProfile('" +mail+ "')";
 
                 name = toTitleCase(name);
 
                 var container = '';
-                container += '<div class="doc" name="' +mail+ '" onclick="displayDocProfile(this.name)">';
+                container += '<div class="doc" onclick="' +func+ '">';
                 container += '<div class="img">';
                 container += '</div>';
                 container += '<div class="name">';
@@ -186,3 +188,24 @@ function toTitleCase(str) {
         return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();
     });
 } 
+
+// doctor profile
+
+function displayDocProfile(mail) {
+    locstore.setItem("docmail", mail);
+    document.location.href = 'patient_docprofile.html';
+}
+
+function getDoctorDetails() {
+    var mail = locstore.getItem("docmail");
+    locstore.removeItem("docmail");
+
+    webstore.transaction(function(tx) {
+        tx.executeSql('SELECT * FROM DOCTORS WHERE email = ?', [mail], function(tx, results) {
+            var name = results.rows.item(0).name;
+
+            document.getElementById("profile_name").innerHTML = "Dr. " +name; 
+
+        });
+    });
+}
