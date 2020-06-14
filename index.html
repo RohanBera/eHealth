@@ -56,9 +56,15 @@
     <script type="text/javascript" src="js/index.js"></script>    
     <script>
         var name = locstore.getItem("name");
+        var user = locstore.getItem("user");
 
         if (name != "null") {
-            window.location.href = "home.html";
+            if (user == "patient") {
+                window.location.href = "patient_home.html";
+            }
+            else {
+                window.location.href = "doctor_home.html";
+            }
         }
     </script>
 

@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HOME PAGE</title>
+    
+    <link rel="stylesheet" href="css/index.css">
+</head>
+
+<body onload="getDoctors()">
+
+    <div id="header" class="header">
+        <span class="menu" onclick="openNav();">&#9776;</span>
+    </div>
+
+    <div id="sidenav" class="sidenav">
+        <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+
+        <div class="sidenav_header"></div>
+
+        <a href="home.html">Home</a>
+        <a href="#">About</a>
+        <a href="#">Services</a>
+        <a href="#">Clients</a>
+        <a href="#">Contact</a>
+        <a href="patient_profile.html">Profile</a>
+        <a class="logout" href="javascript:void(0)" onclick="logout()">Logout</a>
+    </div>
+
+    <div class="content">
+        <h1 id="msg"></h1>
+
+        <div class="doc_container" id="doc_container">
+            <div class="doc">
+                <div class="img">
+
+                </div>
+                <div class="name">
+                    Dr. Blah Blah
+                </div>
+                <a href="#">Book an appointment</a>
+            </div>
+
+            <div class="doc">
+                <div class="img">
+
+                </div>
+                <div class="name">
+                    Dr. Blah Blah
+                </div>
+                <a href="#">Book an appointment</a>
+            </div>
+
+            <div class="doc">
+                <div class="img">
+
+                </div>
+                <div class="name">
+                    Dr. Blah Blah
+                </div>
+                <a href="#">Book an appointment</a>
+            </div>
+
+            <div class="doc">
+                <div class="img">
+
+                </div>
+                <div class="name">
+                    Dr. Blah Blah
+                </div>
+                <a href="#">Book an appointment</a>
+            </div>
+        </div>
+    </div>
+
+    <script type="text/javascript" src="cordova.js"></script>
+    <script type="text/javascript" src="js/index.js"></script>
+    <script>
+        var name = locstore.getItem("name");
+        if (name === "null")
+        {
+            window.location.href = "login.html";
+        }
+        else {
+            document.getElementById("msg").innerHTML = "Hi "+ name + "!"; 
+        }
+    </script>
+</body>
+</html>

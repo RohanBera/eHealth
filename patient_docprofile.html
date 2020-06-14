@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HOME PAGE</title>
+    
+    <link rel="stylesheet" href="css/index.css">
+</head>
+
+<body>
+    <div id="header" class="header" style="box-shadow: none;">
+        <span class="menu" onclick="openNav();">&#9776;</span>
+    </div>
+
+    <div id="sidenav" class="sidenav">
+        <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+
+        <div class="sidenav_header"></div>
+
+        <a href="patient_home.html">Home</a>
+        <a href="#">About</a>
+        <a href="#">Services</a>
+        <a href="#">Clients</a>
+        <a href="#">Contact</a>
+        <a href="patient_profile.html">Profile</a>
+        <a class="logout" href="javascript:void(0)" onclick="logout()">Logout</a>
+    </div>
+
+    <div class="profile">
+        <div class="profile_header" id="profile_header">
+            <div class="profile_picture doctor">
+            </div>     
+
+            <div class="profile_name" id="profile_name">
+            </div>       
+        </div>
+
+        <h1>Book your appointment.</h1>
+        <br>
+        <br>
+    
+        <form action="">
+            <h2>Describe your symptoms</h2>
+            <textarea class="symptoms" name="" id="" rows="5" placeholder="Symptoms..."></textarea>
+
+            <h2>Choose a day</h2>
+        </form>
+
+    </div>
+
+    <script type="text/javascript" src="cordova.js"></script>
+    <script type="text/javascript" src="js/index.js"></script>
+    <script>
+        var name = locstore.getItem("name");
+        if (name === "null")
+        {
+            window.location.href = "login.html";
+        }
+        else {
+            getDoctorDetails();
+        }
+    </script>
+</body>
+</html>
