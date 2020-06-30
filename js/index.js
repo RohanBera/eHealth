@@ -316,9 +316,62 @@ function displayUserProfile() {
                 }
                 else {
                     for (var i = 0; i < len; i++) {
-                        var docmail = results.rows.item(i).doctor;
+                        var date = results.rows.item(i).date.split('/')[0];
+                        var mont = results.rows.item(i).date.split('/')[1];
+                        var d    = new Date();
+                        var now  = new Date();
+                        d.setDate(date);
+                        d.setMonth(mont);
+                        now.setHours(0,0,0,0);
 
-                        appointment += '<div class="appointments">';            
+                        if (d < now) {
+                            appointment += '<div class="appointments old">';
+                        }
+                        else {
+                            appointment += '<div class="appointments">';
+                        }    
+
+                        appointment += '<div class="date-day">';
+                        appointment += '<div class="date">' +results.rows.item(i).date+ '</div>';
+                        appointment += '<div class="day">' +results.rows.item(i).day+ '</div>';
+                        appointment += '</div>';
+                        appointment += '<div class="details">';
+                        appointment += '<div class="main">Dr. '+results.rows.item(i).name+'</div>';
+                        appointment += '<div class="sub">' +results.rows.item(i).symptoms+ '</div>';
+                        appointment += '</div>';
+                        appointment += '</div>';
+                    }
+                }
+                document.getElementById('appointments_container').innerHTML = appointment;
+            });
+        });
+    }
+    else {
+        webstore.transaction(function(tx) {
+            tx.executeSql('SELECT APP.*, PAT.name FROM APPOINTMENTS AS APP, PATIENTS AS PAT WHERE APP.patient = PAT.email AND APP.doctor = ?', [mail], function(tx, results) {
+                var len = results.rows.length;
+                var appointment = '';
+
+                if (len == 0 ) {
+                    appointment += '<h1>No Appointments!</h1>'
+                }
+                else {
+                    for (var i = 0; i < len; i++) {
+                        var date = results.rows.item(i).date.split('/')[0];
+                        var mont = results.rows.item(i).date.split('/')[1];
+                        var d    = new Date();
+                        var now  = new Date();
+                        d.setDate(date);
+                        d.setMonth(mont);
+                        now.setHours(0,0,0,0);
+
+                        if (d < now) {
+                            appointment += '<div class="appointments old">';
+                        }
+                        else {
+                            appointment += '<div class="appointments">';
+                        }            
+
                         appointment += '<div class="date-day">';
                         appointment += '<div class="date">' +results.rows.item(i).date+ '</div>';
                         appointment += '<div class="day">' +results.rows.item(i).day+ '</div>';
