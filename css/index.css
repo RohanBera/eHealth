@@ -136,6 +136,13 @@ a.register {
     box-shadow: none;
 }
 
+.register-form textarea {
+    width: 100%;
+    padding: 15px;
+    border: 1px solid #bbbbbb;
+    border-radius: 5px;
+}
+
 .register-form input {
     margin: 5px 0px;
 }
@@ -408,10 +415,12 @@ input[type=button].dates.booked {
 
 .profile .appointments {
     height: 80px;
-    margin: 30px 20px;
+    margin: 30px 20px 80px 20px;
     box-shadow: 7px 7px 15px grey;
     border-right: 5px solid #acacff;
     border-radius: 4px;
+
+    transition-duration: 300ms;
 }
 
 .profile .appointments .date-day {
@@ -462,4 +471,57 @@ input[type=button].dates.booked {
     font-style: italic;
     text-transform: capitalize;
     color: grey;
+}
+
+.profile .appointments .delete, .profile .appointments .done-cancel {
+    width: 100%;
+    padding: 17px;
+    /* margin-top: 5px; */
+}
+
+.profile .appointments .delete button, .profile .appointments .done-cancel button {
+    height: 100%;
+    padding: 5px;
+    float: left;
+    font-size: 17px;
+    text-transform: capitalize;
+    text-shadow: 4px 4px 5px grey;
+
+    transition-duration: 300ms;
+}
+
+.profile .appointments button:active {
+    text-shadow: 1px 1px 5px grey;
+}
+
+.profile .appointments .delete button.delete {
+    width: 100%;
+    color: red;
+}
+
+.profile .appointments .done-cancel button.done {
+    width: 50%;
+    color: green;
+}
+
+.profile .appointments .done-cancel button.cancel {
+    width: 50%;
+    color: grey;
+}
+
+
+.profile .info {
+    width: 70%;
+    margin: 30px auto;
+    color: rgb(69,69,69);
+
+}
+
+.profile .info i.fa {
+    font-size: 20px;
+}
+
+.profile .info span {
+    font-size: 15px;
+    padding-left: 10px;
 }
