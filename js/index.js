@@ -2,14 +2,9 @@ var webstore = openDatabase('ehealth', '1.0', 'demo', 5*1024*1024);
 var locstore = window.localStorage ;
 webstore.transaction(function(tx) {
     tx.executeSql('CREATE TABLE IF NOT EXISTS PATIENTS (name VARCHAR(50), age INT, phone INT, email VARCHAR(100), password VARCHAR(50), PRIMARY KEY (email))');
-    tx.executeSql('CREATE TABLE IF NOT EXISTS DOCTORS (name VARCHAR(50), age INT, phone INT, email VARCHAR(100), registration_id VARCHAR(50), password VARCHAR(50), PRIMARY KEY (email))');
+    tx.executeSql('CREATE TABLE IF NOT EXISTS DOCTORS (name VARCHAR(50), age INT, phone INT, email VARCHAR(100), registration_id VARCHAR(50), password VARCHAR(50), address VARCHAR(100), PRIMARY KEY (email))');
     tx.executeSql('CREATE TABLE IF NOT EXISTS APPOINTMENTS (patient VARCHAR(50), doctor VARCHAR(50), date VARCHAR(6), day VARCHAR(3), symptoms VARCHAR(100))');
 });
-
-
-// webstore.transaction(function(tx) {
-//     tx.executeSql('DROP TABLE APPOINTMENTS ');
-// });
 
 function patientRegister() {
     var name = document.getElementById("name").value;
@@ -19,11 +14,11 @@ function patientRegister() {
     var pwrd = document.getElementById("pwrd").value;
 
     webstore.transaction(function(tx) {
-        tx.executeSql('CREATE TABLE IF NOT EXISTS PATIENTS (name VARCHAR(50), age INT, phone INT, email VARCHAR(100), password VARCHAR(50), PRIMARY KEY (email))');
+        // tx.executeSql('CREATE TABLE IF NOT EXISTS PATIENTS (name VARCHAR(50), age INT, phone INT, email VARCHAR(100), password VARCHAR(50), PRIMARY KEY (email))');
         tx.executeSql('INSERT INTO PATIENTS VALUES (?,?,?,?,?)', [name, age, phno, mail, pwrd]);
     });
 
-    alert(mail, pwrd);
+    alert('Registration success!');
 
     window.location.href = "index.html";
 }
@@ -35,13 +30,14 @@ function doctorRegister() {
     var mail = document.getElementById("mail").value;
     var regid = document.getElementById("regid").value;
     var pwrd = document.getElementById("pwrd").value;
+    var addr = document.getElementById("addr").value;
 
     webstore.transaction(function(tx) {
-        tx.executeSql('CREATE TABLE IF NOT EXISTS DOCTORS (name VARCHAR(50), age INT, phone INT, email VARCHAR(100), registration_id VARCHAR(50), password VARCHAR(50), PRIMARY KEY (email))');
-        tx.executeSql('INSERT INTO DOCTORS VALUES (?,?,?,?,?,?)', [name, age, phno, mail, regid, pwrd]);
+        // tx.executeSql('CREATE TABLE IF NOT EXISTS DOCTORS (name VARCHAR(50), age INT, phone INT, email VARCHAR(100), registration_id VARCHAR(50), password VARCHAR(50), PRIMARY KEY (email))');
+        tx.executeSql('INSERT INTO DOCTORS VALUES (?,?,?,?,?,?,?)', [name, age, phno, mail, regid, pwrd, addr]);
     });
 
-    alert(mail);
+    alert('Registration success!');
 
     window.location.href = "index.html";
 }
@@ -215,6 +211,7 @@ var arrDays  = new Array(7);
 function getDoctorDetails() {
     var mail = locstore.getItem("docmail");
     // locstore.removeItem("docmail");
+    getDoctorProfile(mail);
 
     webstore.transaction(function(tx) {
         tx.executeSql('SELECT * FROM DOCTORS WHERE email = ?', [mail], function(tx, results) {
@@ -260,9 +257,13 @@ function bookAppointment(dates_container) {
         var day  = dates_container.name;
         var smpt = document.getElementById('symptoms').value;
     
+        if (smpt == '') {
+            alert('please enter symptoms.');
+            return;
+        }
 
         webstore.transaction(function(tx) {
-            tx.executeSql('CREATE TABLE IF NOT EXISTS APPOINTMENTS (patient VARCHAR(50), doctor VARCHAR(50), date VARCHAR(6), day VARCHAR(3), symptoms VARCHAR(100))');
+            // tx.executeSql('CREATE TABLE IF NOT EXISTS APPOINTMENTS (patient VARCHAR(50), doctor VARCHAR(50), date VARCHAR(6), day VARCHAR(3), symptoms VARCHAR(100))');
             tx.executeSql('INSERT INTO APPOINTMENTS VALUES (?,?,?,?,?)', [ptnt, doc, date, day, smpt]);
         });
 
@@ -323,12 +324,23 @@ function displayUserProfile() {
                         d.setDate(date);
                         d.setMonth(mont);
                         now.setHours(0,0,0,0);
+                        var temp = '';
+                        var name = results.rows.item(i).doctor+'_'+results.rows.item(i).date;
 
                         if (d < now) {
                             appointment += '<div class="appointments old">';
+
+                            temp += '<div class="delete">';
+                            temp += '<button type="button" name="'+name+'" class="delete" onclick="removeAppointment(this)"> &#128465; &nbsp; delete </button>';
+                            temp += '</div>';
                         }
                         else {
                             appointment += '<div class="appointments">';
+
+                            temp += '<div class="done-cancel">';
+                            temp += '<button type="button" name="'+name+'" class="done" onclick="removeAppointment(this)"> &#10004; &nbsp; Done </button>';
+                            temp += '<button type="button" name="'+name+'" class="cancel" onclick="removeAppointment(this)"> &times; &nbsp; cancel </button>';
+                            temp += '</div>';
                         }    
 
                         appointment += '<div class="date-day">';
@@ -337,8 +349,9 @@ function displayUserProfile() {
                         appointment += '</div>';
                         appointment += '<div class="details">';
                         appointment += '<div class="main">Dr. '+results.rows.item(i).name+'</div>';
-                        appointment += '<div class="sub">' +results.rows.item(i).symptoms+ '</div>';
+                        appointment += '<div class="sub">' +results.rows.item(i).symptoms+ ' &nbsp; </div>';
                         appointment += '</div>';
+                        appointment += temp;
                         appointment += '</div>';
                     }
                 }
@@ -346,7 +359,7 @@ function displayUserProfile() {
             });
         });
     }
-    else {
+    else if (user == "doctor"){
         webstore.transaction(function(tx) {
             tx.executeSql('SELECT APP.*, PAT.name FROM APPOINTMENTS AS APP, PATIENTS AS PAT WHERE APP.patient = PAT.email AND APP.doctor = ?', [mail], function(tx, results) {
                 var len = results.rows.length;
@@ -364,12 +377,23 @@ function displayUserProfile() {
                         d.setDate(date);
                         d.setMonth(mont);
                         now.setHours(0,0,0,0);
+                        var temp = '';
+                        var name = mail+'_'+results.rows.item(i).date;
 
                         if (d < now) {
                             appointment += '<div class="appointments old">';
+
+                            temp += '<div class="delete">';
+                            temp += '<button type="button" name="'+name+'" class="delete" onclick=removeAppointment(this)> &#128465; &nbsp; delete </button>';
+                            temp += '</div>';
                         }
                         else {
-                            appointment += '<div class="appointments">';
+                            appointment += '<div class="appointments" id="'+i+'">';
+
+                            temp += '<div class="done-cancel">';
+                            temp += '<button type="button" name="'+name+'" class="done" onclick="removeAppointment(this)"> &#10004; &nbsp; Done </button>';
+                            temp += '<button type="button" name="'+name+'" class="cancel" onclick="removeAppointment(this)"> &times; &nbsp; cancel </button>';
+                            temp += '</div>';
                         }            
 
                         appointment += '<div class="date-day">';
@@ -378,8 +402,9 @@ function displayUserProfile() {
                         appointment += '</div>';
                         appointment += '<div class="details">';
                         appointment += '<div class="main">'+results.rows.item(i).name+'</div>';
-                        appointment += '<div class="sub">' +results.rows.item(i).symptoms+ '</div>';
+                        appointment += '<div class="sub">' +results.rows.item(i).symptoms+ '&nbsp; </div>';
                         appointment += '</div>';
+                        appointment += temp;
                         appointment += '</div>';
                     }
                 }
@@ -387,4 +412,52 @@ function displayUserProfile() {
             });
         });
     }
+}
+
+function removeAppointment(button) {
+    var element = button.parentNode.parentNode;
+    var txt = '';
+
+    if (button.className == 'delete') {
+        txt = 'Delete old appointment?';
+    }
+    else if (button.className == 'done') {
+        txt = 'Mark appointment as done?';
+    }
+    else if (button.className == 'cancel') {
+        txt = 'Cancel appointment?';
+    }
+
+    var r = confirm(txt);
+    if (r == true) {
+        element.parentNode.removeChild(element);
+        var mail = button.name.split('_')[0];
+        var date = button.name.split('_')[1];
+        
+        webstore.transaction(function(tx) {
+            tx.executeSql('DELETE FROM APPOINTMENTS WHERE doctor = ? AND date = ?', [mail, date]);
+        });
+    }
+}
+
+function getDoctorProfile(mail) {
+    webstore.transaction(function(tx) {
+        tx.executeSql('SELECT * FROM DOCTORS WHERE email = ?', [mail], function(tx, results) {
+            var temp = '';
+            console.log(mail);
+
+            temp += '<div class="info">';
+            temp += '<i class="fa fa-phone"></i>';
+            temp += '<span id="phone"> '+results.rows.item(0).phone+' </span>';
+            temp += '</div>';
+    
+            temp += '<div class="info">'; 
+            temp += '<i class="fa fa-map-marker"></i>';
+            temp += '<span id="location">' +results.rows.item(0).address+ '</span>';
+            temp += '</div>';
+
+            console.log('vlah');
+            document.getElementById('info_container').innerHTML = temp;
+        });
+    });
 }
